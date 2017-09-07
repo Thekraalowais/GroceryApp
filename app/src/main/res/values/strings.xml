@@ -20,5 +20,11 @@
     <string name="empty_name_field">Enter name</string>
     <string name="empty_price_field">Enter price</string>
     <string name="add_image">Add image</string>
-
+    <string name="imageUri_error">Enter image.</string>
+    <string name="image_error">Enter image</string>
+    <string name="name_error">Enter product name</string>
+    <string name="price_error">Enter product price</string>
+<string name="product_name">Product name :</string>
+    <string name="Product_price">Product price :</string>
+    <string name="product_quantity">Product quantity :</string>
 </resources>

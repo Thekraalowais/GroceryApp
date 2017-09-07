@@ -113,30 +113,34 @@ public class EditActivity extends AppCompatActivity implements LoaderManager.Loa
         String quantityString = "";
         String imageString = "";
         nameString = nameEditText.getText().toString().trim();
+        Log.v("IMAGE2", "DDDDDDDD" + nameString);
+
         priceString = priceEditText.getText().toString().trim();
+        Log.v("IMAGE2", "DDDDDDDD" + priceString);
+
         quantityString = quantityTextView.getText().toString();
-//
-//        if(imageString==null){
-//            Toast.makeText(EditActivity.this,"Enter image.",Toast.LENGTH_SHORT).show();
-//        }else {
-//            imageString= selectedImage.toString();
-//
-//        }
+        Log.v("IMAGE2", "DDDDDDDD" + quantityString);
+
+        if(selectedImage==null){
+            Toast.makeText(EditActivity.this,getString(R.string.imageUri_error),Toast.LENGTH_SHORT).show();
+        }else {
+            imageString= selectedImage.toString();
+        }
         if (currentProductUri == null &&
                 TextUtils.isEmpty(nameString) && TextUtils.isEmpty(priceString) &&
                 TextUtils.isEmpty(quantityString) && TextUtils.isEmpty(imageString)) {
             return;
         }
+
         if (TextUtils.isEmpty(nameString)) {
-            nameEditText.setError("Enter product name");
+            nameEditText.setError(getString(R.string.name_error));
         } else if (TextUtils.isEmpty(priceString)) {
-            priceEditText.setError("Enter product name");
-        } else if (TextUtils.isEmpty(quantityString)) {
-            quantityTextView.setError("Enter product name");
-        } else if (TextUtils.isEmpty(imageString) || imageString == null) {
-            Toast.makeText(EditActivity.this, "Enter image.", Toast.LENGTH_SHORT).show();
+            priceEditText.setError(getString(R.string.price_error));
+        } else if (TextUtils.isEmpty(imageString)) {
+            Toast.makeText(EditActivity.this, getString(R.string.image_error), Toast.LENGTH_SHORT).show();
             Log.v("IMAGE1", "DDDDDDDD" + imageString);
         } else {
+
             imageString = selectedImage.toString();
             Log.v("IMAGE2", "DDDDDDDD" + imageString);
             ContentValues values = new ContentValues();
@@ -150,7 +154,7 @@ public class EditActivity extends AppCompatActivity implements LoaderManager.Loa
                     Toast.makeText(this, getString(R.string.insert_fail), Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(this, getString(R.string.insert_successful), Toast.LENGTH_SHORT).show();
-
+                    finish();
                 }
             } else {
 
@@ -159,6 +163,7 @@ public class EditActivity extends AppCompatActivity implements LoaderManager.Loa
                     Toast.makeText(this, getString(R.string.update_fail), Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(this, getString(R.string.update_successful), Toast.LENGTH_SHORT).show();
+                    finish();
                 }
             }
         }
@@ -186,7 +191,6 @@ public class EditActivity extends AppCompatActivity implements LoaderManager.Loa
         switch (item.getItemId()) {
             case R.id.save:
                 saveProduct();
-                finish();
                 return true;
             case R.id.delete:
                 showDeleteConfirmationDialog();
@@ -338,7 +342,6 @@ public class EditActivity extends AppCompatActivity implements LoaderManager.Loa
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
             selectedImage = data.getData();
             Log.v("RESULT", "SSSSSSSSs" + selectedImage);
-
             Picasso.with(EditActivity.this).load(selectedImage).into(productImage);
 
         }
