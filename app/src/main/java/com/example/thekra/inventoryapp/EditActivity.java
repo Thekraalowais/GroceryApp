@@ -25,8 +25,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.thekra.inventoryapp.InventoryContract.InventoryEntry;
+import com.squareup.picasso.Picasso;
 
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
+import at.markushi.ui.CircleButton;
+
 import static com.example.thekra.inventoryapp.R.id.imageView;
 
 public class EditActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -84,7 +86,7 @@ public class EditActivity extends AppCompatActivity implements LoaderManager.Loa
         quantityTextView.setOnTouchListener(touchListener);
         productImage.setOnTouchListener(touchListener);
 
-        Button increase = (Button) findViewById(R.id.increase);
+        CircleButton increase = (CircleButton) findViewById(R.id.increase);
         increase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,7 +94,7 @@ public class EditActivity extends AppCompatActivity implements LoaderManager.Loa
                 quantityTextView.setText(String.valueOf(quantity));
             }
         });
-        Button decrease = (Button) findViewById(R.id.decrease);
+        CircleButton decrease = (CircleButton) findViewById(R.id.decrease);
 
         decrease.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,42 +108,50 @@ public class EditActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     private void saveProduct() {
-        String nameString = nameEditText.getText().toString().trim();
-//        if (TextUtils.isEmpty(nameString))
-//            nameEditText.setError("Enter product name");
-        String priceString = priceEditText.getText().toString().trim();
-//        if (TextUtils.isEmpty(priceString))
-//            priceEditText.setError("Enter product price");
-        String quantityString = quantityTextView.getText().toString();
-//        if (TextUtils.isEmpty(quantityString))
-//            quantityTextView.setError("Enter product quantity");
-        String imageString = null;
+        String nameString = "";
+        String priceString = "";
+        String quantityString = "";
+        String imageString = "";
+        nameString = nameEditText.getText().toString().trim();
+        priceString = priceEditText.getText().toString().trim();
+        quantityString = quantityTextView.getText().toString();
         imageString = selectedImage.toString();
-//        if (TextUtils.isEmpty(imageString))
-//            Toast.makeText(EditActivity.this, "Enter product image", Toast.LENGTH_SHORT).show();
-//
-//        if (currentProductUri == null && TextUtils.isEmpty(nameString) && TextUtils.isEmpty(priceString) && TextUtils.isEmpty(quantityString) && TextUtils.isEmpty(imageString)) {
-//            return;
-//        }
-        ContentValues values = new ContentValues();
-        values.put(InventoryEntry.COLUMN_PRODUCT_NAME, nameString);
-        values.put(InventoryEntry.COLUMN_PRODUCT_PRICE, priceString);
-        values.put(InventoryEntry.COLUMN_PRODUCT_QUANTITY, quantityString);
-        values.put(InventoryEntry.COLUMN_PRODUCT_IMAGE, imageString);
-        if (currentProductUri == null) {
-            Uri newUri = getContentResolver().insert(InventoryEntry.CONTENT_URI, values);
-            if (newUri == null) {
-                Toast.makeText(this, getString(R.string.insert_fail), Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, getString(R.string.insert_successful), Toast.LENGTH_SHORT).show();
-            }
-        } else {
 
-            int rowAffected = getContentResolver().update(currentProductUri, values, null, null);
-            if (rowAffected == 0) {
-                Toast.makeText(this, getString(R.string.update_fail), Toast.LENGTH_SHORT).show();
+        if (currentProductUri == null &&
+                TextUtils.isEmpty(nameString) && TextUtils.isEmpty(priceString) &&
+                TextUtils.isEmpty(quantityString) &&  TextUtils.isEmpty(imageString) ) {
+            return;
+        }
+        if (nameString.matches("")) {
+            nameEditText.setError("Enter product name");
+        } else if (priceString.matches("")) {
+            priceEditText.setError("Enter product name");
+        } else if (quantityString.matches("")) {
+            quantityTextView.setError("Enter product name");
+        } else if (imageString.matches("")) {
+            Toast.makeText(EditActivity.this, "Enter image", Toast.LENGTH_SHORT).show();
+        } else {
+            ContentValues values = new ContentValues();
+            values.put(InventoryEntry.COLUMN_PRODUCT_NAME, nameString);
+            values.put(InventoryEntry.COLUMN_PRODUCT_PRICE, priceString);
+            values.put(InventoryEntry.COLUMN_PRODUCT_QUANTITY, quantityString);
+            values.put(InventoryEntry.COLUMN_PRODUCT_IMAGE, imageString);
+            if (currentProductUri == null) {
+                Uri newUri = getContentResolver().insert(InventoryEntry.CONTENT_URI, values);
+                if (newUri == null) {
+                    Toast.makeText(this, getString(R.string.insert_fail), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, getString(R.string.insert_successful), Toast.LENGTH_SHORT).show();
+
+                }
             } else {
-                Toast.makeText(this, getString(R.string.update_successful), Toast.LENGTH_SHORT).show();
+
+                int rowAffected = getContentResolver().update(currentProductUri, values, null, null);
+                if (rowAffected == 0) {
+                    Toast.makeText(this, getString(R.string.update_fail), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, getString(R.string.update_successful), Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }
@@ -247,7 +257,7 @@ public class EditActivity extends AppCompatActivity implements LoaderManager.Loa
         nameEditText.setText("");
         quantityTextView.setText("");
         priceEditText.setText("");
-//        productImage.setImageURI(null);
+        productImage.setImageURI(null);
     }
 
     private void showUnsavedChangesDialog(DialogInterface.OnClickListener discardButtonClickListener) {
@@ -320,9 +330,11 @@ public class EditActivity extends AppCompatActivity implements LoaderManager.Loa
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
             selectedImage = data.getData();
             Log.v("RESULT", "SSSSSSSSs" + selectedImage);
-            productImage.setImageURI(selectedImage);
+
+            Picasso.with(EditActivity.this).load(selectedImage).into(productImage);
 
         }
+
     }
 
 

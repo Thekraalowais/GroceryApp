@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp"
     tools:context="com.example.thekra.inventoryapp.EditActivity">
@@ -72,19 +73,23 @@
             android:layout_marginRight="20dp"
             android:text="0" />
 
-        <Button
+        <at.markushi.ui.CircleButton
+            app:cb_color="@color/colorPrimary"
+            android:focusable="false"
+            android:src="@drawable/plus"
             android:id="@+id/increase"
             android:layout_width="0dp"
             android:layout_height="40dp"
-            android:layout_weight="1"
-            android:text="+" />
+            android:layout_weight="1" />
 
-        <Button
+        <at.markushi.ui.CircleButton
+            app:cb_color="@color/colorPrimary"
+            android:focusable="false"
+            android:src="@drawable/neg"
             android:id="@+id/decrease"
             android:layout_width="0dp"
             android:layout_height="40dp"
-            android:layout_weight="1"
-            android:text="-" />
+            android:layout_weight="1" />
     </LinearLayout>
 
     <LinearLayout

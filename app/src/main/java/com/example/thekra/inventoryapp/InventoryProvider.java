@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.thekra.inventoryapp.InventoryContract.InventoryEntry;
 
@@ -83,6 +84,14 @@ public class InventoryProvider extends ContentProvider {
         Integer price = values.getAsInteger(InventoryEntry.COLUMN_PRODUCT_PRICE);
         if (price != null && price < 0) {
             throw new IllegalArgumentException("product require a valid price");
+        }
+        Integer quantity  = values.getAsInteger(InventoryEntry.COLUMN_PRODUCT_QUANTITY);
+        if (quantity != null && quantity<0 ) {
+            throw new IllegalArgumentException("product require a valid quantity");
+        }
+        String image  = values.getAsString(InventoryEntry.COLUMN_PRODUCT_IMAGE);
+        if (image == null ) {
+            throw new IllegalArgumentException("product require a valid image");
         }
         SQLiteDatabase database = inventoryDbHelper.getWritableDatabase();
         long id = database.insert(InventoryEntry.TABLE_NAME, null, values);

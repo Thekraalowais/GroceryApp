@@ -24,7 +24,8 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
 
         <Button
             android:id="@+id/decrease_button"
@@ -34,17 +35,18 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="16dp"
             android:focusable="false"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/round_button"
             android:text="-" />
-
 
         <TextView
             android:id="@+id/quantity_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
             android:layout_toLeftOf="@id/decrease_button"
             android:textSize="30dp"
             tools:text="TEST" />
-
     </RelativeLayout>
 </LinearLayout>
