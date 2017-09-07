@@ -115,22 +115,30 @@ public class EditActivity extends AppCompatActivity implements LoaderManager.Loa
         nameString = nameEditText.getText().toString().trim();
         priceString = priceEditText.getText().toString().trim();
         quantityString = quantityTextView.getText().toString();
-        imageString = selectedImage.toString();
-
+//
+//        if(imageString==null){
+//            Toast.makeText(EditActivity.this,"Enter image.",Toast.LENGTH_SHORT).show();
+//        }else {
+//            imageString= selectedImage.toString();
+//
+//        }
         if (currentProductUri == null &&
                 TextUtils.isEmpty(nameString) && TextUtils.isEmpty(priceString) &&
-                TextUtils.isEmpty(quantityString) &&  TextUtils.isEmpty(imageString) ) {
+                TextUtils.isEmpty(quantityString) && TextUtils.isEmpty(imageString)) {
             return;
         }
-        if (nameString.matches("")) {
+        if (TextUtils.isEmpty(nameString)) {
             nameEditText.setError("Enter product name");
-        } else if (priceString.matches("")) {
+        } else if (TextUtils.isEmpty(priceString)) {
             priceEditText.setError("Enter product name");
-        } else if (quantityString.matches("")) {
+        } else if (TextUtils.isEmpty(quantityString)) {
             quantityTextView.setError("Enter product name");
-        } else if (imageString.matches("")) {
-            Toast.makeText(EditActivity.this, "Enter image", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(imageString) || imageString == null) {
+            Toast.makeText(EditActivity.this, "Enter image.", Toast.LENGTH_SHORT).show();
+            Log.v("IMAGE1", "DDDDDDDD" + imageString);
         } else {
+            imageString = selectedImage.toString();
+            Log.v("IMAGE2", "DDDDDDDD" + imageString);
             ContentValues values = new ContentValues();
             values.put(InventoryEntry.COLUMN_PRODUCT_NAME, nameString);
             values.put(InventoryEntry.COLUMN_PRODUCT_PRICE, priceString);
