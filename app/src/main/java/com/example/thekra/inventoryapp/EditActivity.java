@@ -323,7 +323,8 @@ public class EditActivity extends AppCompatActivity implements LoaderManager.Loa
         String name = nameEditText.getText().toString().trim();
         String quantity = quantityTextView.getText().toString();
         String price = priceEditText.getText().toString().trim();
-        String summary = name + "\n" + quantity + "\n" + price;
+        String image = selectedImage.toString();
+        String summary = name + "\n" + quantity + "\n" + price + "\n" + image ;
 
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:"));
