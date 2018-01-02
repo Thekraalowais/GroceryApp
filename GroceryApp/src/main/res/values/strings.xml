@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">GroceryApp</string>
+    <string name="empty_view_title_text">It\'s a bit lonely here...</string>
+    <string name="empty_view_subtitle_text">Get started by adding a product</string>
+    <string name="label_Add">Add a product</string>
+    <string name="label_Edit">Edit a product</string>
+    <string name="insert_fail">save product failed</string>
+    <string name="insert_successful">Insert product saved</string>
+    <string name="update_fail">Error updating product</string>
+    <string name="update_successful">product updated</string>
+    <string name="save_dialog">Discard your changes and quit editing</string>
+    <string name="discard">Discard</string>
+    <string name="keep">Keep editing</string>
+    <string name="delete_dialog">Delete this product? </string>
+    <string name="delete">Delete</string>
+    <string name="Cancle">Cancel</string>
+    <string name="delete_fail">Deleted fail</string>
+    <string name="delete_successful">Deleted successful</string>
+    <string name="Order_supplier">Send item</string>
+    <string name="empty_name_field">Enter name</string>
+    <string name="empty_price_field">Enter price</string>
+    <string name="add_image">Add image</string>
+    <string name="imageUri_error">Enter image.</string>
+    <string name="image_error">Enter image</string>
+    <string name="name_error">Enter product name</string>
+    <string name="price_error">Enter product price</string>
+<string name="product_name">Product name :</string>
+    <string name="Product_price">Product price :</string>
+    <string name="product_quantity">Product quantity :</string>
+</resources>
